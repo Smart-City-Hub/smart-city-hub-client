@@ -1,33 +1,13 @@
 import React from "react";
-import Avatar from "/src/scenes/components/Avatar";
+import Avatar from "@components/Avatar";
+import PostCard from "@components/PostCard";
 
 function PostFormPage() {
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="card w-96 bg-base-100 shadow-xl">
-            <figure>
-              <img
-                src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">
-                Title Inovate!
-                <div className="badge badge-secondary">NEW</div>
-              </h2>
-              <div className="flex gap-3">
-                <Avatar />
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-              </div>
-              <div className="card-actions justify-end">
-                <div className="badge badge-outline">Iklim Cuaca</div>
-                <div className="badge badge-outline">Technology</div>
-              </div>
-            </div>
-          </div>
+          <PostCard />
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="flex gap-2">
               <Avatar />

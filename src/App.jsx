@@ -4,6 +4,7 @@ import HomePage from "./scenes/HomePage";
 import LoginPage from "./scenes/loginPage";
 import PostFormPage from "./scenes/postFormPage";
 import PostCardView from "./scenes/postPage";
+import ProfilPage from "./scenes/profilPage";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Route path="/home" element={<HomePage />} />
       <Route path="/post" element={<PostCardView />} />
       <Route path="/posting" element={<PostFormPage />} />
-      <Route path="/profile/:userId" element={<profilPage />} />
+      <Route path="/profile" element={<ProfilPage />} />
     </Routes>
   );
 }

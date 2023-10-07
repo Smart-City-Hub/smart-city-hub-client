@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../components/Card";
-import Avatar from "../components/Avatar";
+import Card from "../../components/Card";
+import Avatar from "../../components/Avatar";
 
 function PostCardView() {
   return (
