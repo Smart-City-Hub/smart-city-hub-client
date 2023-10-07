@@ -1,6 +1,6 @@
 import React from "react";
 
-function Avatar({ size }) {
+function Avatar({ size, url }) {
   let width = "w-10";
   if (size === "lg") {
     width = "w-24";
