@@ -11,6 +11,7 @@ import HttpCatImage from "./scenes/errorPage/HttpCatImage";
 import SavedPostsPages from "./scenes/savedPosts";
 import About from "./scenes/profilPage/about";
 import NotificationsPage from "./scenes/notificationsPage";
+import SignupPage from "./scenes/signupPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="*" element={<HttpCatImage statusCode={404} />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/post" element={<PostCardView />} />
       <Route path="/saved" element={<SavedPostsPages />} />
