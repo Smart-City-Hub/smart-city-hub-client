@@ -1,63 +1,95 @@
 import axios from "axios";
 import { useState } from "react";
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 function SignupPage() {
-  const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState({
-    email: "",
-    password: "",
-    username: "",
-  });
-  const { email, password, username } = inputValue;
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
-  };
+  // const navigate = useNavigate();
+  // const [inputValue, setInputValue] = useState({
+  //   email: "",
+  //   password: "",
+  //   username: "",
+  // });
+  // const { email, password, username } = inputValue;
+  // const handleOnChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setInputValue({
+  //     ...inputValue,
+  //     [name]: value,
+  //   });
+  // };
 
-  const handleError = (err) =>
-    toast.error(err, {
-      position: "bottom-left",
-    });
-  const handleSuccess = (msg) =>
-    toast.success(msg, {
-      position: "bottom-right",
-    });
+  // const handleError = (err) =>
+  //   toast.error(err, {
+  //     position: "bottom-left",
+  //   });
+  // const handleSuccess = (msg) =>
+  //   toast.success(msg, {
+  //     position: "bottom-right",
+  //   });
 
-  const handleSubmit = async (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const { data } = await axios.post(
+  //       "http://localhost:4000/signup",
+  //       {
+  //         ...inputValue,
+  //       },
+  //       { withCredentials: true }
+  //     );
+  //     const { success, message } = data;
+  //     if (success) {
+  //       handleSuccess(message);
+  //       setTimeout(() => {
+  //         navigate("/");
+  //       }, 1000);
+  //     } else {
+  //       handleError(message);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setInputValue({
+  //     ...inputValue,
+  //     email: "",
+  //     password: "",
+  //     username: "",
+  //   });
+  // };
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const { data } = await axios.post(
-        "http://localhost:4000/signup",
-        {
-          ...inputValue,
-        },
-        { withCredentials: true }
-      );
-      const { success, message } = data;
-      if (success) {
-        handleSuccess(message);
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      } else {
-        handleError(message);
+    const response = await axios.post(
+      "http://localhost:3000/api/users/register",
+      {
+        username,
+        email,
+        password,
       }
-    } catch (error) {
-      console.log(error);
+    ) ;
+
+    if (response.status === 200) {
+      //  toast.success("Registration successful");
+      alert("registration successfull");
+
+        setTimeout(() => {
+          setRedirect(true);
+        }, 5000);
+    } else {
+      alert("registration failed");
     }
-    setInputValue({
-      ...inputValue,
-      email: "",
-      password: "",
-      username: "",
-    });
-  };
+  }
+
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -78,7 +110,7 @@ function SignupPage() {
                   name="email"
                   value={email}
                   placeholder="Enter your email"
-                  onChange={handleOnChange}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-control">
@@ -91,7 +123,7 @@ function SignupPage() {
                   name="username"
                   value={username}
                   placeholder="Enter your username"
-                  onChange={handleOnChange}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="form-control">
@@ -104,7 +136,7 @@ function SignupPage() {
                   name="password"
                   value={password}
                   placeholder="Enter your password"
-                  onChange={handleOnChange}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <label className="label">
