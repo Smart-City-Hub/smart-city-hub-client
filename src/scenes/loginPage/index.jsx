@@ -1,52 +1,61 @@
-import Layout from "@components/Layout";
-import Card from "@components/Card";
-import React from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
+import { useContext, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = inputValue;
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
-  };
-  const handleError = (err) =>
-    toast.error(err, {
-      position: "bottom-left",
-    });
-  const handleSuccess = (msg) =>
-    toast.success(msg, {
-      position: "bottom-left",
-    });
-  const handleSubmit = async (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
+
+  async function login(e) {
     e.preventDefault();
-    try {
-      const { data } = await axios.post(
-        "http://localhost:4000/login",
-        {
-          ...inputValue,
-        },
-        { withCredentials: true }
-      );
-      console.log(data);
-      const { success, message } = data;
-      if (success) {
-        handleSuccess();
-      } else {
-      }
-    } catch (error) {
-      console.log(error);
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:3000/api/users/login",
+    //     {
+    //       email,
+    //       password,
+    //     }
+    //   );
+
+    //   if (response.status === 200) {
+    //     setUserInfo(response.data);
+    //     setRedirect(true);
+    //     alert("Login successful");
+    //   }
+    // } catch (error) {
+    //   alert("Wrong credentials");
+    // }
+
+    const response = await fetch("http://localhost:3000/api/users/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      response.json().then((userInfo) => {
+        setUserInfo(userInfo.data);
+        setRedirect(true);
+
+
+      });
+    } else {
+      alert("Wrong credentials");
     }
-  };
+
+    if (response.status === 200) {
+      alert("login successfull");
+    } else {
+      alert("login failed");
+    }
+  }
+
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -55,7 +64,7 @@ const LoginPage = () => {
           <h1 className="text-5xl font-bold">Login now!</h1>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form className="card-body" onSubmit={handleSubmit}>
+          <form className="card-body" onSubmit={login}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -64,6 +73,8 @@ const LoginPage = () => {
                 type="email"
                 placeholder="email"
                 className="input input-bordered"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -74,6 +85,8 @@ const LoginPage = () => {
               <input
                 type="password"
                 placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="input input-bordered"
                 required
               />
@@ -84,7 +97,9 @@ const LoginPage = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary" type="submit">
+                Login
+              </button>
             </div>
             <div className="divider"></div>
             <button className="btn">Google</button>

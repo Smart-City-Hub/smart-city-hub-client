@@ -1,10 +1,16 @@
-import React from "react";
+
 import Card from "./Card";
 import Avatar from "./Avatar";
 import StatsPost from "./StatsPost";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/userContext";
+import { useContext } from "react";
+
 
 function PostCard() {
+
+  const { userInfo } = useContext(UserContext);
+
   return (
     <div>
       <Card>
@@ -18,8 +24,7 @@ function PostCard() {
             <div className="grow">
               <p>
                 <Link to="/profile">
-                  <span className="mr-1 font-semibold cursor-pointer hover:underline">
-                    Someone
+                  <span className="mr-1 font-semibold cursor-pointer hover:underline">                  
                   </span>
                 </Link>
                 shared a <a className="link link-neutral">idea</a>
@@ -111,6 +116,7 @@ function PostCard() {
             <div tabIndex={0} className="collapse">
               <div className="collapse-title text-xl font-medium">
                 Green city in the city center
+                
               </div>
               <div className="collapse-content">
                 <p>

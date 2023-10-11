@@ -1,64 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import React from "react";
 import { Navigate, Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 
 function SignupPage() {
-  // const navigate = useNavigate();
-  // const [inputValue, setInputValue] = useState({
-  //   email: "",
-  //   password: "",
-  //   username: "",
-  // });
-  // const { email, password, username } = inputValue;
-  // const handleOnChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setInputValue({
-  //     ...inputValue,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleError = (err) =>
-  //   toast.error(err, {
-  //     position: "bottom-left",
-  //   });
-  // const handleSuccess = (msg) =>
-  //   toast.success(msg, {
-  //     position: "bottom-right",
-  //   });
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const { data } = await axios.post(
-  //       "http://localhost:4000/signup",
-  //       {
-  //         ...inputValue,
-  //       },
-  //       { withCredentials: true }
-  //     );
-  //     const { success, message } = data;
-  //     if (success) {
-  //       handleSuccess(message);
-  //       setTimeout(() => {
-  //         navigate("/");
-  //       }, 1000);
-  //     } else {
-  //       handleError(message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setInputValue({
-  //     ...inputValue,
-  //     email: "",
-  //     password: "",
-  //     username: "",
-  //   });
-  // };
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -73,22 +17,20 @@ function SignupPage() {
         email,
         password,
       }
-    ) ;
+    );
 
     if (response.status === 200) {
-      //  toast.success("Registration successful");
-      alert("registration successfull");
-
-        setTimeout(() => {
-          setRedirect(true);
-        }, 5000);
+      alert("Registration successful");
+      setTimeout(() => {
+        setRedirect(true);
+      }, 5000);
     } else {
       alert("registration failed");
     }
   }
 
   if (redirect) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/login"} />;
   }
 
   return (
@@ -149,7 +91,6 @@ function SignupPage() {
                 </button>
               </div>
             </form>
-            <ToastContainer />
           </div>
         </div>
       </div>

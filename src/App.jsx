@@ -12,24 +12,27 @@ import SavedPostsPages from "./scenes/savedPosts";
 import About from "./scenes/profilPage/about";
 import NotificationsPage from "./scenes/notificationsPage";
 import SignupPage from "./scenes/signupPage";
+import { UserContextProvider } from "./context/userContext";
 
 function App() {
   return (
-    <Routes>
-      <Route path="*" element={<HttpCatImage statusCode={404} />} />
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/post" element={<PostCardView />} />
-      <Route path="/saved" element={<SavedPostsPages />} />
-      <Route path="/notifications" element={<NotificationsPage />} />
-      <Route path="/posting" element={<PostFormPage />} />
-      <Route path="/profile" element={<ProfilPage />} />
-      <Route path="/profile/posts" element={<ProfilPosts />} />
-      <Route path="/profile/friends" element={<ProfilFriends />} />
-      <Route path="/profile/about" element={<About />} />
-    </Routes>
+    <UserContextProvider>
+      <Routes>
+        <Route path="*" element={<HttpCatImage statusCode={404} />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/post" element={<PostCardView />} />
+        <Route path="/saved" element={<SavedPostsPages />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/posting" element={<PostFormPage />} />
+        <Route path="/profile" element={<ProfilPage />} />
+        <Route path="/profile/posts" element={<ProfilPosts />} />
+        <Route path="/profile/friends" element={<ProfilFriends />} />
+        <Route path="/profile/about" element={<About />} />
+      </Routes>
+    </UserContextProvider>
   );
 }
 
