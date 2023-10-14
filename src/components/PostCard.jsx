@@ -1,15 +1,32 @@
-
 import Card from "./Card";
 import Avatar from "./Avatar";
+import { posts } from "../data";
 import StatsPost from "./StatsPost";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserContext } from "../context/userContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import PostPage from "../scenes/postPage";
+import Modal from "./Modal";
 
-
-function PostCard() {
-
+function PostCard({ post }) {
   const { userInfo } = useContext(UserContext);
+
+  const [isModalOpen, setIsModal] = useState(false);
+
+  const openModal = () => {
+    setIsModal(true);
+  };
+
+  const closeModal = () => {
+    setIsModal(false);
+  };
+
+  useEffect(() => {
+    const modalElement = document.getElementById("my_modal_2");
+    if (modalElement) {
+      modalElement.showModal();
+    }
+  }, [isModalOpen]);
 
   return (
     <div>
@@ -17,16 +34,12 @@ function PostCard() {
         <div className="card-body">
           <div className="flex gap-3">
             <div>
-              <Link to="">
+              <Link to="/profile/posts/:id">
                 <Avatar />
               </Link>
             </div>
             <div className="grow">
               <p>
-                <Link to="/profile">
-                  <span className="mr-1 font-semibold cursor-pointer hover:underline">                  
-                  </span>
-                </Link>
                 shared a <a className="link link-neutral">idea</a>
               </p>
               <p className="text-gray-500 text-sm">2 hours ago</p>
@@ -115,38 +128,14 @@ function PostCard() {
           <div>
             <div tabIndex={0} className="collapse">
               <div className="collapse-title text-xl font-medium">
-                Green city in the city center
-                
+                {post.title}
               </div>
-              <div className="collapse-content">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
-              </div>
+              <div className="collapse-content">{post.desc}</div>
             </div>
           </div>
-          <div className="card  bg-base-100 shadow-xl image-full">
-            <figure className="rounded-md overflow-hidden">
-              <img
-                src="https://plus.unsplash.com/premium_photo-1661880245476-3ba5d401d7e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1933&q=80"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Open for detail</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Detail</button>
-              </div>
-            </div>
-          </div>
+          <figure className="rounded-md overflow-hidden">
+            <img src={post.img} alt="Shoes" />
+          </figure>
           <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
             <li>
               <a>
@@ -168,26 +157,29 @@ function PostCard() {
                 <span className="badge badge-sm">99+</span>
               </a>
             </li>
-            <li>
-              <a>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Comments
-                <span className="badge badge-sm badge-warning">NEW</span>
-              </a>
-            </li>
+            <Link to={`/post/${post.id}`}>
+              <li onClick={openModal}>
+                <a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Comments
+                  <span className="badge badge-sm badge-warning">NEW</span>
+                </a>
+              </li>
+            </Link>
+            {isModalOpen && <Modal post={post} closeModal={closeModal} />}
           </ul>
         </div>
       </Card>

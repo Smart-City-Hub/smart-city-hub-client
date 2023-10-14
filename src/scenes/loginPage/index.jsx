@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UserContext } from "../../context/userContext";
 import { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -39,8 +39,6 @@ const LoginPage = () => {
       response.json().then((userInfo) => {
         setUserInfo(userInfo.data);
         setRedirect(true);
-
-
       });
     } else {
       alert("Wrong credentials");
@@ -99,6 +97,11 @@ const LoginPage = () => {
             <div className="form-control mt-6">
               <button className="btn btn-primary" type="submit">
                 Login
+              </button>
+            </div>
+            <div className="form-control mt-6">
+              <button className="btn btn-primary" type="submit">
+                <Link to="/signup">Sign UP</Link>
               </button>
             </div>
             <div className="divider"></div>
