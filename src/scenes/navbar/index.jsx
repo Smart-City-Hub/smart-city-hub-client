@@ -1,11 +1,18 @@
 import Avatar from "@components/Avatar";
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ user }) => {
-  const { pathname } = useLocation();
+  const { setUserInfo } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  function logout() {}
+  const handleLogout = () => {
+    localStorage.removeItem("smartcityhub");
+    setUserInfo(null);
+    navigate("/login", { replace: true });
+  };
+
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -40,11 +47,9 @@ const Navbar = ({ user }) => {
                 <li>
                   <a>Settings</a>
                 </li>
-                <Link to="/login">
-                  <li>
-                    <a>Logout</a>
-                  </li>
-                </Link>
+                <li onClick={handleLogout}>
+                  <a>Logout</a>
+                </li>
               </ul>
             </div>
           </div>

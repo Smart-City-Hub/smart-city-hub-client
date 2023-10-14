@@ -8,6 +8,7 @@ import HttpCatImage from "../errorPage/HttpCatImage";
 import FriendInfo from "@components/FriendInfo";
 import FriendTotal from "@components/FriendTotal";
 import AboutMe from "@components/AboutMe";
+import { posts } from "../../data";
 
 function ProfilPage() {
   const { pathname } = useLocation();
@@ -61,7 +62,9 @@ function ProfilPage() {
         </div>
         {isPosts && (
           <div>
-            <PostCard />
+            {posts.map((post) => (
+              <PostCard post={post} />
+            ))}
           </div>
         )}
         {isFriends && (

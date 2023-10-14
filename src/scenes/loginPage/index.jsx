@@ -38,6 +38,7 @@ const LoginPage = () => {
     if (response.ok) {
       response.json().then((userInfo) => {
         setUserInfo(userInfo.data);
+        localStorage.setItem("smartcityhub", JSON.stringify(userInfo.data));
         setRedirect(true);
       });
     } else {

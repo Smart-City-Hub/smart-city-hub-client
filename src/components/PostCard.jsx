@@ -9,8 +9,6 @@ import PostPage from "../scenes/postPage";
 import Modal from "./Modal";
 
 function PostCard({ post }) {
-  const { userInfo } = useContext(UserContext);
-
   const [isModalOpen, setIsModal] = useState(false);
 
   const openModal = () => {

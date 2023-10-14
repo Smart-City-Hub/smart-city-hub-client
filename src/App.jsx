@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,13 +16,15 @@ import SavedPostsPages from "./scenes/savedPosts";
 import About from "./scenes/profilPage/about";
 import NotificationsPage from "./scenes/notificationsPage";
 import SignupPage from "./scenes/signupPage";
-import { UserContextProvider } from "./context/userContext";
+import { UserContext, UserContextProvider } from "./context/userContext";
 import Navbar from "./scenes/navbar";
 
 function App() {
-  const user = true;
+  const { userInfo } = useContext(UserContext);
+
+  const user = userInfo != null;
   return (
-    <UserContextProvider>
+    <>
       <Navbar user={user} />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -49,7 +51,7 @@ function App() {
         <Route path="/logout" element={<LoginPage />} />
         <Route path="*" element={<HttpCatImage statusCode={404} />} />
       </Routes>
-    </UserContextProvider>
+    </>
   );
 }
 

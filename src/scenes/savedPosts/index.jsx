@@ -1,5 +1,6 @@
 import Layout from "@components/Layout";
 import PostCard from "@components/PostCard";
+import { posts } from "../../data";
 import React from "react";
 
 function SavedPostsPages() {
@@ -12,9 +13,9 @@ function SavedPostsPages() {
           </h1>
         </div>
         <div className="mb-4 divider"></div>
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        {posts.map((post) => (
+          <PostCard post={post} />
+        ))}
       </Layout>
     </div>
   );
