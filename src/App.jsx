@@ -33,6 +33,10 @@ function App() {
           element={user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route
+          path="/signup"
+          element={user ? <Navigate to="/" /> : <SignupPage />}
+        />
+        <Route
           path="/home/:id"
           element={user ? <HomePage /> : <Navigate to="/login" />}
         />
@@ -47,7 +51,6 @@ function App() {
         <Route path="/profile/posts" element={<ProfilPosts />} />
         <Route path="/profile/friends" element={<ProfilFriends />} />
         <Route path="/profile/about" element={<About />} />
-        <Route path="/signup" element={<SignupPage />} />
         <Route path="/logout" element={<LoginPage />} />
         <Route path="*" element={<HttpCatImage statusCode={404} />} />
       </Routes>
