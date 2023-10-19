@@ -69,6 +69,15 @@ function SignupPage() {
                 />
               </div>
               <div className="form-control">
+                <label className="label" htmlFor="email">
+                  <span className="label-text">Avatar</span>
+                </label>
+                <input
+                  type="file"
+                  className="file-input file-input-bordered w-full max-w-xs"
+                />
+              </div>
+              <div className="form-control">
                 <label className="label" htmlFor="password">
                   <span className="label-text">Password</span>
                 </label>
