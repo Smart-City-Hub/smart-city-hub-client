@@ -48,7 +48,7 @@ function App() {
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/posting" element={<PostFormPage />} />
         <Route path="/profile" element={<ProfilPage />} />
-        <Route path="/profile/posts" element={<ProfilPosts />} />
+        <Route path="/profile/posts/:id" element={<ProfilPosts />} />
         <Route path="/profile/friends" element={<ProfilFriends />} />
         <Route path="/profile/about" element={<About />} />
         <Route path="/logout" element={<LoginPage />} />

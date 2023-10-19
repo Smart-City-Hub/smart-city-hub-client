@@ -10,7 +10,8 @@ function PostFormPage() {
   useEffect(() => {
     //Grap Profile user pic
     // alert(`Hello ${user}`);
-  });
+    console.log("asd");
+  }, []);
   return (
     <div>
       <Layout>

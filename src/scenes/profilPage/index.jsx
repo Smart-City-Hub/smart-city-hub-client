@@ -25,7 +25,7 @@ function ProfilPage() {
               <div className="h-36 overflow-hidden flex justify-center items-center">
                 <img
                   src="https://images.unsplash.com/photo-1541844053589-346841d0b34c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-                  alt="Shoes"
+                  alt="background image"
                 />
               </div>
             </figure>
@@ -42,7 +42,7 @@ function ProfilPage() {
         </Card>
         <div className="tabs tabs-boxed">
           <Link
-            to="/profile/posts"
+            to="/profile/posts/:id"
             className={(isPosts ? "tab-active " : "") + "tab"}
           >
             Posts
