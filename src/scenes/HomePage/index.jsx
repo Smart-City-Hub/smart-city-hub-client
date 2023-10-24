@@ -5,13 +5,24 @@ import PostCard from "../../components/PostCard";
 import Navbar from "../navbar/index";
 import Layout from "@components/Layout";
 import { posts } from "../../data";
+import { useContext, useEffect, useState } from "react";
 
 const HomePage = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/post/all").then((response) => {
+      response.json().then((posts) => {
+        setPosts(posts.data);
+      });
+    });
+  }, []);
+
   return (
     <div>
       <Layout>
         {posts.map((post) => (
-          <PostCard post={post} />
+          <PostCard post={post} key={post.id} />
         ))}
       </Layout>
     </div>

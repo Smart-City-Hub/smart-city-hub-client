@@ -128,11 +128,11 @@ function PostCard({ post }) {
               <div className="collapse-title text-xl font-medium">
                 {post.title}
               </div>
-              <div className="collapse-content">{post.desc}</div>
+              <div className="collapse-content">{post.content}</div>
             </div>
           </div>
           <figure className="rounded-md overflow-hidden">
-            <img src={post.img} alt="Shoes" />
+            <img src={"http://localhost:3000/" + post.cover} alt="Shoes" />
           </figure>
           <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
             <li>
