@@ -38,7 +38,12 @@ function PostCard({ post }) {
             </div>
             <div className="grow">
               <p>
-                shared a <a className="link link-neutral">idea</a>
+                <Link href={"/profile/posts/:id"}>
+                  <span className="mr-1 font-semibold cursor-pointer hover:underline">
+                    {/* {authorProfile.name} */} Someone
+                  </span>
+                </Link>
+                shared a post
               </p>
               <p className="text-gray-500 text-sm">2 hours ago</p>
             </div>
