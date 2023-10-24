@@ -11,24 +11,7 @@ const LoginPage = () => {
 
   async function login(e) {
     e.preventDefault();
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:3000/api/users/login",
-    //     {
-    //       email,
-    //       password,
-    //     }
-    //   );
-
-    //   if (response.status === 200) {
-    //     setUserInfo(response.data);
-    //     setRedirect(true);
-    //     alert("Login successful");
-    //   }
-    // } catch (error) {
-    //   alert("Wrong credentials");
-    // }
-
+ 
     const response = await fetch("http://localhost:3000/api/users/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
