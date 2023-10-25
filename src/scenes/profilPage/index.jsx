@@ -63,7 +63,7 @@ function ProfilPage() {
         {isPosts && (
           <div>
             {posts.map((post) => (
-              <PostCard post={post} />
+              <PostCard post={post} key={post.id} />
             ))}
           </div>
         )}

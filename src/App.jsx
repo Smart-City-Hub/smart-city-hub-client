@@ -37,18 +37,18 @@ function App() {
           element={user ? <Navigate to="/" /> : <SignupPage />}
         />
         <Route
-          path="/home/:id"
+          path="/home/:_id"
           element={user ? <HomePage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/post/:id"
+          path="/post/:_id"
           element={user ? <HomePage /> : <Navigate to="/login" />}
         />
         <Route path="/saved" element={<SavedPostsPages />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/posting" element={<PostFormPage />} />
         <Route path="/profile" element={<ProfilPage />} />
-        <Route path="/profile/posts/:id" element={<ProfilPosts />} />
+        <Route path="/profile/posts/:_id" element={<ProfilPosts />} />
         <Route path="/profile/friends" element={<ProfilFriends />} />
         <Route path="/profile/about" element={<About />} />
         <Route path="/logout" element={<LoginPage />} />

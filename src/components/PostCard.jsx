@@ -10,6 +10,7 @@ import Modal from "./Modal";
 
 function PostCard({ post }) {
   const [isModalOpen, setIsModal] = useState(false);
+  
 
   const openModal = () => {
     setIsModal(true);

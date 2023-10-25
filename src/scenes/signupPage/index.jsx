@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 
 function SignupPage() {
+  const [photo, setPhoto] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +43,17 @@ function SignupPage() {
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <form onSubmit={handleSubmit}>
+              <div className="form-control">
+                <label className="label" htmlFor="avatar">
+                  <span className="label-text">Avatar profil</span>
+                </label>
+                <input
+                  type="file"
+                  className="file-input file-input-bordered file-input-xs w-full max-w-xs"
+                  value={photo}
+                  onChange={(e) => setPhoto(e.target.value)}
+                />
+              </div>
               <div className="form-control">
                 <label className="label" htmlFor="email">
                   <span className="label-text">Email</span>

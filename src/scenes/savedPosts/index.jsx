@@ -13,9 +13,6 @@ function SavedPostsPages() {
           </h1>
         </div>
         <div className="mb-4 divider"></div>
-        {posts.map((post) => (
-          <PostCard post={post} />
-        ))}
       </Layout>
     </div>
   );
