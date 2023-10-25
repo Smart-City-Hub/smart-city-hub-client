@@ -13,6 +13,9 @@ function SavedPostsPages() {
           </h1>
         </div>
         <div className="mb-4 divider"></div>
+        {posts.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
       </Layout>
     </div>
   );
