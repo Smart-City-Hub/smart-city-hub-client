@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@components/Layout";
 import Card from "@components/Card";
 import Avatar from "@components/Avatar";
@@ -8,13 +8,38 @@ import HttpCatImage from "../errorPage/HttpCatImage";
 import FriendInfo from "@components/FriendInfo";
 import FriendTotal from "@components/FriendTotal";
 import AboutMe from "@components/AboutMe";
-import { posts } from "../../data";
+// import { posts } from "../../data";
+import { postService } from "../../services";
+import axios from "axios";
+// import { controller } from "../../services/api";
 
 function ProfilPage() {
   const { pathname } = useLocation();
   const isPosts = pathname.includes("posts") || pathname === "/profile";
   const isAbout = pathname.includes("about");
   const isFriends = pathname.includes("friends");
+
+  const [post, setPost] = useState([])
+
+  const getPostPostedByUser = async (signal) => {
+    try {
+      const response = await postService.getPostPostedByUser(signal)
+      setPost(response.data.data)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    getPostPostedByUser(signal)
+    return () => {
+      controller.abort()
+    }
+  }, [])
 
   return (
     <div>
@@ -42,7 +67,7 @@ function ProfilPage() {
         </Card>
         <div className="tabs tabs-boxed">
           <Link
-            to="/profile/posts/:id"
+            to="/profile/posts"
             className={(isPosts ? "tab-active " : "") + "tab"}
           >
             Posts
@@ -62,11 +87,17 @@ function ProfilPage() {
         </div>
         {isPosts && (
           <div>
-            {posts.map((post) => (
-              <PostCard post={post} key={post.id} />
+            {post.map((post) => (
+              <PostCard post={post} key={post._id} />
             ))}
           </div>
         )}
+        {
+          isPosts && post.length === 0 ?
+          (
+          <h1 className="text-lg font-bold text-center text-slate-600 mt-24">You dont have a post yet</h1>
+          ) : <></>
+        }
         {isFriends && (
           <Card>
             <FriendTotal />
