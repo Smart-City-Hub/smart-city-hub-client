@@ -4,6 +4,8 @@ import PostCard from "@components/PostCard";
 import Layout from "@components/Layout";
 import Card from "@components/Card";
 import { postService } from "../../services";
+import Alert from "@components/Alert";
+import { useModal } from "../../hooks";
 
 function PostFormPage() {
   const [user, setUser] = useState();
@@ -14,6 +16,7 @@ function PostFormPage() {
     summary: "Summary react",
     content: ""
   })
+  const [show, toggle] = useModal()
   const onChangeFile = (e) => {
     const { files } = e.target
     if (!files) return
@@ -36,7 +39,7 @@ function PostFormPage() {
       formData.append("content", request.content)
       formData.append("file", fileGambar)
       const resp = await postService.createPost(formData)
-      console.log(resp)
+      toggle()
     }
     catch (e) {
       console.log(e)
@@ -97,6 +100,9 @@ function PostFormPage() {
           
         </Card>
       </Layout>
+      {
+        show ? <Alert toggle={toggle}/> : <></>
+      }
     </div>
   );
 }
