@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,9 +18,47 @@ import NotificationsPage from "./scenes/notificationsPage";
 import SignupPage from "./scenes/signupPage";
 import { UserContext, UserContextProvider } from "./context/userContext";
 import Navbar from "./scenes/navbar";
+import loginButton from "./scenes/loginPage/login";
+import logoutButton from "./scenes/loginPage/logout";
+import { gapi } from "gapi-script";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+
+const clientId =
+  "20926891972-c216blddp1en3cpr7dqv1n59v9dtane1.apps.googleusercontent.com";
 
 function App() {
   const { userInfo } = useContext(UserContext);
+  const [Googleuser, setGoogleUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setGoogleUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+  useEffect(() => {
+    if (Googleuser) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${Googleuser.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Googleuser.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [Googleuser]);
+
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
+  };
 
   const user = userInfo != null;
   return (

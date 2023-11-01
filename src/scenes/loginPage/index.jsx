@@ -2,6 +2,7 @@ import axios from "axios";
 import { UserContext } from "../../context/userContext";
 import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import Login from "./login";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const LoginPage = () => {
 
   async function login(e) {
     e.preventDefault();
- 
+
     const response = await fetch("http://localhost:3000/api/users/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -89,9 +90,7 @@ const LoginPage = () => {
               </button>
             </div>
             <div className="divider"></div>
-            <button className="btn">Google</button>
-            <button className="btn">Twiiter</button>
-            <button className="btn">Github</button>
+            <Login />
           </form>
         </div>
       </div>

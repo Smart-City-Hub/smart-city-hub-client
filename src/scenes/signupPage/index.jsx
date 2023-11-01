@@ -11,22 +11,42 @@ function SignupPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:3000/api/users/register",
-      {
-        username,
-        email,
-        password,
-      }
-    );
+    const formData = new FormData();
+    formData.append("avatar", photo);
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
 
-    if (response.status === 200) {
-      alert("Registration successful");
-      setTimeout(() => {
-        setRedirect(true);
-      }, 5000);
-    } else {
-      alert("registration failed");
+    // const response = await axios.post(
+    //   "http://localhost:3000/api/users/register",
+    //   formData
+    // );
+
+    // if (response.data && response.data.status === 200) {
+    //   alert("Registration successful");
+    //   setTimeout(() => {
+    //     setRedirect(true);
+    //   }, 5000);
+    // } else {
+    //   alert("registration failed");
+    // }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/users/register",
+        formData
+      );
+      if (response.data && response.data.status === 200) {
+        alert("Registration successful");
+        setTimeout(() => {
+          setRedirect(true);
+        }, 5000);
+      } else {
+        alert("Registration failed");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Registration failed. Please try again.");
     }
   }
 
@@ -51,7 +71,7 @@ function SignupPage() {
                   type="file"
                   className="file-input file-input-bordered file-input-xs w-full max-w-xs"
                   value={photo}
-                  onChange={(e) => setPhoto(e.target.value)}
+                  onChange={(e) => setPhoto(e.target.files[0])}
                 />
               </div>
               <div className="form-control">
