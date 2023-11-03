@@ -11,6 +11,9 @@ import AboutMe from "@components/AboutMe";
 // import { posts } from "../../data";
 import { postService } from "../../services";
 import axios from "axios";
+import MyPostCard from "@components/myPostCard";
+import EditPostModal from "@components/EditPostModal";
+import { useModal } from "../../hooks";
 // import { controller } from "../../services/api";
 
 function ProfilPage() {
@@ -18,6 +21,7 @@ function ProfilPage() {
   const isPosts = pathname.includes("posts") || pathname === "/profile";
   const isAbout = pathname.includes("about");
   const isFriends = pathname.includes("friends");
+  const [editModalShow, setEditModalShow] = useModal()
 
   const [post, setPost] = useState([])
 
@@ -25,9 +29,21 @@ function ProfilPage() {
     try {
       const response = await postService.getPostPostedByUser(signal)
       setPost(response.data.data)
-      console.log(response)
+      // console.log(response)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const deletePost = async (id) => {
+    try {
+        const response = await postService.deletePost(id)
+        // console.log(response)
+        setPost(prev => {
+          return prev.filter(item => item._id !== id )
+        })
+    } catch (error) {
+        console.log(error)
     }
   }
 
@@ -88,7 +104,7 @@ function ProfilPage() {
         {isPosts && (
           <div>
             {post.map((post) => (
-              <PostCard post={post} key={post._id} />
+              <MyPostCard post={post} deletePost={deletePost} key={post._id} toggleEditModal={setEditModalShow}/>
             ))}
           </div>
         )}
@@ -110,6 +126,9 @@ function ProfilPage() {
           </div>
         )}
       </Layout>
+      {
+        editModalShow ? <EditPostModal toggleEditModal={setEditModalShow}/>: <></>
+      }
     </div>
   );
 }

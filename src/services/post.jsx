@@ -13,4 +13,18 @@ const getPostPostedByUser = async (signal) => {
     })
 }
 
-export { createPost, getPostPostedByUser }
+const deletePost = async (id) => {
+    return await HttpRequest.delete(`api/post/${id}`)
+}
+
+const getPostById = async (id, signal) => {
+    return await HttpRequest.get(`api/post/${id}`, {
+        signal: signal
+    })
+}
+
+const updatePost = async (request) => {
+    return await HttpRequest.put(`api/post`, request)
+}
+
+export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost }
