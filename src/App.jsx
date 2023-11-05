@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import HomePage from "./scenes/HomePage";
 import LoginPage from "./scenes/loginPage";
@@ -23,19 +24,23 @@ function App() {
   const { userInfo } = useContext(UserContext);
 
   const user = userInfo != null;
+  const location = useLocation()
+  console.log(location.pathname)
   return (
     <>
-      <Navbar user={user} />
+      {
+        location.pathname != '/signup' && location.pathname != '/login' ? <Navbar user={user} />: <></>
+      }
       <Routes>
-        <Route path="/" element={<HomePage />} />
         <Route
-          path="/login"
-          element={user ? <Navigate to="/" /> : <LoginPage />}
+            path="/login"
+            element={user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route
           path="/signup"
           element={user ? <Navigate to="/" /> : <SignupPage />}
         />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/home/:_id"
           element={user ? <HomePage /> : <Navigate to="/login" />}

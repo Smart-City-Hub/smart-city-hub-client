@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { postService } from "../services";
 
 // bisa ditambahi skeleton loading buat loading get post by idnya ya wir
-const EditPostModal = ({toggleEditModal}) => {
+const EditPostModal = ({toggleEditModal, toggleAlert}) => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [postData, setPostData] = useState({
         title: "",
@@ -40,8 +40,8 @@ const EditPostModal = ({toggleEditModal}) => {
                 formData.append("file", fileGambar)
             }
             const response = await postService.updatePost(formData)
-            // console.log(response)
             toggleEditModal()
+            toggleAlert()
         } catch (error) {
             console.log(error)
         }

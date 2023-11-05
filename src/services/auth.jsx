@@ -4,4 +4,8 @@ const login = async (request) => {
     return await HttpRequest.post('/api/users/login', request)
 }
 
-export { login }
+const register = async (request) => {
+    return await HttpRequest.post('/api/users/register', request)
+}
+
+export { login, register }

@@ -15,6 +15,7 @@ import MyPostCard from "@components/myPostCard";
 import EditPostModal from "@components/EditPostModal";
 import { useModal } from "../../hooks";
 // import { controller } from "../../services/api";
+import Alert from "@components/Alert";
 
 function ProfilPage() {
   const { pathname } = useLocation();
@@ -22,6 +23,7 @@ function ProfilPage() {
   const isAbout = pathname.includes("about");
   const isFriends = pathname.includes("friends");
   const [editModalShow, setEditModalShow] = useModal()
+  const [alertShow, setAlertShow] = useModal()
 
   const [post, setPost] = useState([])
 
@@ -55,7 +57,7 @@ function ProfilPage() {
     return () => {
       controller.abort()
     }
-  }, [])
+  }, [alertShow])
 
   return (
     <div>
@@ -127,7 +129,10 @@ function ProfilPage() {
         )}
       </Layout>
       {
-        editModalShow ? <EditPostModal toggleEditModal={setEditModalShow}/>: <></>
+        editModalShow ? <EditPostModal toggleEditModal={setEditModalShow} toggleAlert={setAlertShow}/>: <></>
+      }
+      {
+        alertShow ? <Alert toggle={setAlertShow} message={"Post updated"} type={"alert-success"}/>: <></>
       }
     </div>
   );

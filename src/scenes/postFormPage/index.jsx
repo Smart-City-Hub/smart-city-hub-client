@@ -55,7 +55,7 @@ function PostFormPage() {
         <Card>
           <div className="flex gap-3">
             <Avatar url={""} />
-            <div className="form-control w-full">
+            <form className="form-control w-full" onSubmit={(e) => createPost(e)}>
               <label className="label">
                 <span className="label-text">Your Title idea</span>
               </label>
@@ -66,14 +66,16 @@ function PostFormPage() {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full mb-3"
+                required
               />
               {/* <label className="input-group"> */}
                 {/* <span>Upload</span> */}
                 <input
                   type="file"
-                  placeholder="jpg/png"
+                  placeholder="add picture"
                   className="file-input file-input-bordered w-full"
                   onChange={onChangeFile}
+                  required
                 />
               {/* </label> */}
               <div className="card flex-shrink-0 w-full bg-base-100">
@@ -87,21 +89,22 @@ function PostFormPage() {
                     className="textarea textarea-bordered textarea-lg w-full"
                     name="content"
                     onChange={(e) => onChangeTesk(e)}
+                    required
                   ></textarea>
                 </div>
 
                   <div className="form-control mt-6">
-                    <button className="btn btn-primary" onClick={createPost}>Upload your idea !</button>
+                    <button className="btn btn-primary" type="submit">Upload your idea !</button>
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
           
         </Card>
       </Layout>
       {
-        show ? <Alert toggle={toggle}/> : <></>
+        show ? <Alert toggle={toggle} message={"Post created successfully"} type={"alert-success"}/> : <></>
       }
     </div>
   );
