@@ -24,17 +24,19 @@ function App() {
   const { userInfo } = useContext(UserContext);
 
   const user = userInfo != null;
-  const location = useLocation()
-  console.log(location.pathname)
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <>
-      {
-        location.pathname != '/signup' && location.pathname != '/login' ? <Navbar user={user} />: <></>
-      }
+      {location.pathname != "/signup" && location.pathname != "/login" ? (
+        <Navbar user={user} />
+      ) : (
+        <></>
+      )}
       <Routes>
         <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <LoginPage />}
+          path="/login"
+          element={user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route
           path="/signup"
@@ -58,6 +60,10 @@ function App() {
         <Route path="/profile/about" element={<About />} />
         <Route path="/logout" element={<LoginPage />} />
         <Route path="*" element={<HttpCatImage statusCode={404} />} />
+        <Route
+          path="/post/undefined"
+          element={<HttpCatImage statusCode={404} />}
+        />
       </Routes>
     </>
   );
