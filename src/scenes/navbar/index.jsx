@@ -1,17 +1,37 @@
 import Avatar from "@components/Avatar";
 import { UserContext } from "../../context/userContext";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { authService } from "../../services";
+import { profileStore } from "../../store/profile";
 
 const Navbar = ({ user }) => {
-  const { setUserInfo } = useContext(UserContext);
+  const { userInfo ,setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
+  // console.log(JSON.parse(userInfo))
+  const profile = profileStore(state => state.profile)
+  const updateProfile = profileStore(state => state.setProfile)
+
 
   const handleLogout = () => {
     localStorage.removeItem("smartcityhub");
     setUserInfo(null);
     navigate("/login", { replace: true });
   };
+
+  const getUserProfile = async () => {
+    try {
+      const response = await authService.getUserProfile()
+      console.log(response.data.data[0])
+      updateProfile(response.data.data[0])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getUserProfile()
+  }, [])
 
   return (
     <div>

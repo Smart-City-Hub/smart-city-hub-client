@@ -16,6 +16,7 @@ import EditPostModal from "@components/EditPostModal";
 import { useModal } from "../../hooks";
 // import { controller } from "../../services/api";
 import Alert from "@components/Alert";
+import { profileStore } from "../../store/profile";
 
 function ProfilPage() {
   const { pathname } = useLocation();
@@ -24,6 +25,7 @@ function ProfilPage() {
   const isFriends = pathname.includes("friends");
   const [editModalShow, setEditModalShow] = useModal()
   const [alertShow, setAlertShow] = useModal()
+  const profile = profileStore(state => state.profile)
 
   const [post, setPost] = useState([])
 
@@ -76,7 +78,7 @@ function ProfilPage() {
               <div className="flex gap-5">
                 <Avatar size={"lg"} />
                 <div>
-                  <h2 className="card-title text-3xl font-bold">Someone</h2>
+                  <h2 className="card-title text-3xl font-bold">{profile.username}</h2>
                   <p>Sleman, Yogyakarta</p>
                 </div>
               </div>

@@ -8,4 +8,8 @@ const register = async (request) => {
     return await HttpRequest.post('/api/users/register', request)
 }
 
-export { login, register }
+const getUserProfile = async () => {
+    return await HttpRequest.get('/api/users')
+}
+
+export { login, register, getUserProfile }
