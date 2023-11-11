@@ -30,9 +30,12 @@ const SearchPage = () => {
   return (
     <div>
       <Layout>
+        <>
+        <h1 className="text-lg font-bold text-start text-slate-600">{`Showed ${posts.length} results for ${searchParams.get('key')}`}</h1>
         {posts.length > 0 ? posts.map((post) => (
           <PostCard post={post} key={post._id} />
         )): <h1 className="text-lg font-bold text-center text-slate-600 mt-24">Post not found</h1>}
+        </>
       </Layout>
     </div>
   );
