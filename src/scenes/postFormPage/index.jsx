@@ -104,7 +104,7 @@ function PostFormPage() {
         </Card>
       </Layout>
       {
-        show ? <Alert toggle={toggle} message={"Post created successfully"} type={"alert-success"}/> : <></>
+        show ? <Alert toggle={toggle} message={"Post created successfully"} type={"success"}/> : <></>
       }
     </div>
   );
