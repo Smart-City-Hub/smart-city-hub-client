@@ -19,13 +19,14 @@ import NotificationsPage from "./scenes/notificationsPage";
 import SignupPage from "./scenes/signupPage";
 import { UserContext, UserContextProvider } from "./context/userContext";
 import Navbar from "./scenes/navbar";
+import SearchPage from "./scenes/Search/Search";
 
 function App() {
   const { userInfo } = useContext(UserContext);
 
   const user = userInfo != null;
   const location = useLocation()
-  console.log(location.pathname)
+  // console.log(location.pathname)
   return (
     <>
       {
@@ -41,14 +42,15 @@ function App() {
           element={user ? <Navigate to="/" /> : <SignupPage />}
         />
         <Route path="/" element={<HomePage />} />
-        <Route
+        {/* <Route
           path="/home/:_id"
           element={user ? <HomePage /> : <Navigate to="/login" />}
         />
         <Route
           path="/post/:_id"
           element={user ? <HomePage /> : <Navigate to="/login" />}
-        />
+        /> */}
+        <Route path="/search" element={<SearchPage />}/>
         <Route path="/saved" element={<SavedPostsPages />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/posting" element={<PostFormPage />} />

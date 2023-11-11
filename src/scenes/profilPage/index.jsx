@@ -134,7 +134,7 @@ function ProfilPage() {
         editModalShow ? <EditPostModal toggleEditModal={setEditModalShow} toggleAlert={setAlertShow}/>: <></>
       }
       {
-        alertShow ? <Alert toggle={setAlertShow} message={"Post updated"} type={"alert-success"}/>: <></>
+        alertShow ? <Alert toggle={setAlertShow} message={"Post updated"} type={"success"}/>: <></>
       }
     </div>
   );

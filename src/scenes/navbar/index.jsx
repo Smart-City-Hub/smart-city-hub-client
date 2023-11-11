@@ -7,6 +7,7 @@ import { profileStore } from "../../store/profile";
 
 const Navbar = ({ user }) => {
   const { userInfo ,setUserInfo } = useContext(UserContext);
+  // const navigate = useNavigate()
   const navigate = useNavigate();
   // console.log(JSON.parse(userInfo))
   const profile = profileStore(state => state.profile)
@@ -48,6 +49,13 @@ const Navbar = ({ user }) => {
                 type="text"
                 placeholder="Search"
                 className="input input-bordered w-24 md:w-auto"
+                onKeyDown={(e) => {
+                  if (e.key == "Enter") {
+                    const obj = e.target.value
+                    const queryParams = '?' + new URLSearchParams({key: obj}).toString()
+                    navigate(`/search${queryParams}`)
+                  }
+                }}
               />
             </div>
             <div className="dropdown dropdown-end">

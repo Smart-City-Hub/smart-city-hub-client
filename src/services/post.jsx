@@ -27,4 +27,8 @@ const updatePost = async (request) => {
     return await HttpRequest.put(`api/post`, request)
 }
 
-export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost }
+const searchPost = async (request) => {
+    return await HttpRequest.get(`api/post/search${request}`)
+}
+
+export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost, searchPost }
