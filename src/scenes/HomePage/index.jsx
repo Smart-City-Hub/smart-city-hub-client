@@ -6,9 +6,11 @@ import Navbar from "../navbar/index";
 import Layout from "@components/Layout";
 import { posts } from "../../data";
 import { useContext, useEffect, useState } from "react";
+import { profileStore } from "../../store/profile";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
+  const profile = profileStore(state => state.profile)
 
   useEffect(() => {
     fetch("http://localhost:3000/api/post/all").then((response) => {
@@ -22,7 +24,7 @@ const HomePage = () => {
     <div>
       <Layout>
         {posts.map((post) => (
-          <PostCard post={post} key={post.id} />
+          <PostCard post={post} key={post.id} username={profile.username}/>
         ))}
       </Layout>
     </div>

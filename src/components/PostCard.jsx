@@ -7,11 +7,21 @@ import { UserContext } from "../context/userContext";
 import { useContext, useEffect, useState } from "react";
 import PostPage from "../scenes/postPage";
 import Modal from "./Modal";
+import { postService } from "../services";
 
-function PostCard({ post }) {
+function PostCard({ post, username }) {
   const [isModalOpen, setIsModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams()
-  
+  const [liked, setLiked] = useState(false)
+  console.log(post.likes, username, post.likes.indexOf(username), liked)
+  const toggleLikedPost = async () => {
+    try {
+      const response = await postService.toggleLikedPost(post._id)
+      // console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const openModal = () => {
     setIsModal(true);
@@ -21,12 +31,31 @@ function PostCard({ post }) {
     setIsModal(false);
   };
 
+  // const setLikeAsync = async () => {
+  //   try {
+  //   const profile = await profileStore?.username
+  //   console.log(post.likes.indexOf(`${profile?.username}`), profile, 'from await')
+  //   if(post.likes.indexOf(`${profile?.username}`) !== -1) {
+  //     console.log('akan ke true')
+  //     setLiked(true)
+  //   }
+  //   } catch (error) {
+  //     // 
+  //   }
+  // }
+
   useEffect(() => {
     const modalElement = document.getElementById("my_modal_2");
+    // console.log(profile.username)
+    if(post.likes.indexOf(username) !== -1) {
+      setLiked(true)
+    }
+    // setLikeAsync()
     if (modalElement) {
       modalElement.showModal();
     }
-  }, [isModalOpen]);
+
+  }, [isModalOpen, username]);
 
 
   return (
@@ -143,34 +172,15 @@ function PostCard({ post }) {
             <img src={"http://localhost:3000/" + post.cover} alt="Shoes" />
           </figure>
           <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
-            <li>
-              <a>
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z"
-                  />
-                </svg> */}
-                <svg 
-                  className="w-6 h-6 hover:animate-like hover:fill-red-600" 
-                  fill="" 
-                  role="img" 
-                  viewBox="0 0 24 24" 
-                  >
-                  <path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z">
-                  </path>
-                </svg>
+            <li onClick={() => {
+                toggleLikedPost()
+                setLiked(prev => !prev)
+              }}>
+              <div>
+                <svg className="w-6 h-6 like_post" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-liked={liked} fill={liked ? "red": ""}><path d={liked ? "M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z": "M17.516 3c2.382 0 4.487 1.564 4.487 4.712 0 4.963-6.528 8.297-10.003 11.935-3.475-3.638-10.002-6.971-10.002-11.934 0-3.055 2.008-4.713 4.487-4.713 3.18 0 4.846 3.644 5.515 5.312.667-1.666 2.333-5.312 5.516-5.312zm0-2c-2.174 0-4.346 1.062-5.516 3.419-1.17-2.357-3.342-3.419-5.515-3.419-3.403 0-6.484 2.39-6.484 6.689 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-4.586-3.414-6.689-6.484-6.689z"}/></svg>
                 Likes
-                <span className="badge badge-sm">99+</span>
-              </a>
+                <span className="badge badge-sm">{post.likes.length}</span>
+              </div>
             </li>
             {/* <Link to={`/post/${post._id}`}> */}
               <li onClick={() => {

@@ -31,4 +31,8 @@ const searchPost = async (request) => {
     return await HttpRequest.get(`api/post/search${request}`)
 }
 
-export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost, searchPost }
+const toggleLikedPost = async (post_id) => {
+    return await HttpRequest.post(`api/post/${post_id}/like`)
+}
+
+export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost, searchPost, toggleLikedPost }
