@@ -23,7 +23,7 @@ const Navbar = ({ user }) => {
   const getUserProfile = async () => {
     try {
       const response = await authService.getUserProfile()
-      console.log(response.data.data[0])
+      // console.log(response.data.data[0])
       updateProfile(response.data.data[0])
     } catch (error) {
       console.log(error)

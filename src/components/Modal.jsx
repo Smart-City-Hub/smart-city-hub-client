@@ -34,7 +34,7 @@ function Modal({ post ,closeModal}) {
     }
   }
 
-  console.log(post.comments)
+  // console.log(post.comments)
 
   const createComment = async (id, data) => {
     try {
