@@ -5,6 +5,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { postService } from "../services";
 import ChatBubble from "./ChatBubble";
 import { profileStore } from "../store/profile";
+import { useComments } from "../hooks";
 
 function Modal({ post ,closeModal}) {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -14,6 +15,8 @@ function Modal({ post ,closeModal}) {
     content: ""
   })
   const [comment, setComment] = useState(post.comments)
+  const [comments, setToggleFetch] = useComments(post._id)
+  console.log(comments, 'baru')
 
   const [commentText, setCommentText] = useState("")
   const profile = profileStore(state => state.profile)
@@ -44,6 +47,7 @@ function Modal({ post ,closeModal}) {
       const response = await postService.createComment(id, {
         text:data
       })
+      setToggleFetch(prev => !prev)
     } catch (error) {
       console.log(error)      
     }
@@ -92,7 +96,7 @@ function Modal({ post ,closeModal}) {
           <div className="h-full">
           <h1 className="text-lg font-bold text-start text-slate-600">Comments</h1>
             {
-              comment.map(data => <ChatBubble comment={data}/>)
+              comments.map(data => <ChatBubble comment={data}/>)
             }
           </div>
         </div>
