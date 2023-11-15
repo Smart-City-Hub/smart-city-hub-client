@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { authService } from "../../services";
+import { useAlert } from "../../hooks";
+import Alert from "@components/Alert";
 
 function SignupPage() {
   const [photo, setPhoto] = useState("");
@@ -9,6 +11,7 @@ function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [show, toggle, msg, setMsg, type, setType] = useAlert()
 
   const [fileGambar, setFileGambar] = useState(null);
   const [request, setRequest] = useState({
@@ -40,27 +43,26 @@ function SignupPage() {
       formData.append("password", request.password)
       formData.append("file", fileGambar)
       const response = await authService.register(formData)
-      console.log(response)
+      // console.log(response)
+      setType("success")
+      setMsg("Registration success")
+      toggle()
     } catch (error) {
-      console.log(error)
-    }
-    // const response = await axios.post(
-    //   "http://localhost:3000/api/users/register",
-    //   {
-    //     username,
-    //     email,
-    //     password,
-    //   }
-    // );
+      const msgError = error.response.data
 
-    // if (response.status === 200) {
-    //   alert("Registration successful");
-    //   setTimeout(() => {
-    //     setRedirect(true);
-    //   }, 5000);
-    // } else {
-    //   alert("registration failed");
-    // }
+      switch (msgError) {
+        case "Email already exist":
+          setType("error")
+          setMsg("Email already used, use other email")
+          toggle()
+          break
+        case "Username already exist":
+          setType("error")
+          setMsg("Username already used")
+          toggle()
+          break
+      }
+    }
   }
 
   if (redirect) {
@@ -168,6 +170,9 @@ function SignupPage() {
             <img className="rounded-2xl" src="https://images.unsplash.com/photo-1579547621113-e4bb2a19bdd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1878&q=80" />
         </div>
         </div>
+        {
+          show ? <Alert toggle={toggle} message={msg} type={type}/> : <></>
+        }
     </section>
   );
 }

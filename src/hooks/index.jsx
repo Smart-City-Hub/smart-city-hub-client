@@ -1,3 +1,4 @@
 import useModal from "./useModal";
+import useAlert from "./useAlert";
 
-export { useModal }
+export { useModal, useAlert }

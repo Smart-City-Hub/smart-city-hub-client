@@ -56,13 +56,21 @@ function PostCard({ post, username }) {
             <div>
               <Link to="/profile/posts/:id">
                 <Avatar />
+                {/* <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img
+                      src={`${import.meta.env.VITE_BASEURL}/${post.cover}`} // nanti diganti dengan photo profil dari anunya
+                      alt="foto profil"
+                    />
+                  </div>
+                </label> */}
               </Link>
             </div>
             <div className="grow">
               <p>
                 <Link href={"/profile/posts/:id"}>
                   <span className="mr-1 font-semibold cursor-pointer hover:underline">
-                    {/* {authorProfile.name} */} {username}
+                    {/* {authorProfile.name} */} {post.author}
                   </span>
                 </Link>
                 shared a post

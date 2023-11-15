@@ -35,7 +35,7 @@ const Alert = ({toggle, message, type}) => {
     }, [])
     return ReactDOM.createPortal(
       // <div className="fixed top-0 right-0 bottom-0 left-0">
-        <div className={`alert alert-${type} max-w-xs fixed right-5 bottom-5 ${ended ? 'animate-slide_out_bottom': 'animate-slide_in_bottom'}`}>
+        <div className={`alert ${type == "success" ? `alert-success`: `alert-error`} max-w-xs fixed right-5 bottom-5 ${ended ? 'animate-slide_out_bottom': 'animate-slide_in_bottom'}`}>
           {
             iconFunction(type)
           }
