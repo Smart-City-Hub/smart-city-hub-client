@@ -35,4 +35,12 @@ const toggleLikedPost = async (post_id) => {
     return await HttpRequest.post(`api/post/${post_id}/like`)
 }
 
-export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost, searchPost, toggleLikedPost }
+const createComment = async (post_id, request) => {
+    return await HttpRequest.post(`api/post/${post_id}/comments`, request)
+}
+
+const getComment = async (post_id) => {
+    return await HttpRequest.get(`api/post/${post_id}/comments`)
+}
+
+export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost, searchPost, toggleLikedPost, createComment, getComment }

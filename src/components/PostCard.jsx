@@ -13,7 +13,7 @@ function PostCard({ post, username }) {
   const [isModalOpen, setIsModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams()
   const [liked, setLiked] = useState(false)
-  console.log(post.likes, username, post.likes.indexOf(username), liked)
+  // console.log(post.likes, username, post.likes.indexOf(username), liked)
   const toggleLikedPost = async () => {
     try {
       const response = await postService.toggleLikedPost(post._id)
@@ -30,19 +30,6 @@ function PostCard({ post, username }) {
   const closeModal = () => {
     setIsModal(false);
   };
-
-  // const setLikeAsync = async () => {
-  //   try {
-  //   const profile = await profileStore?.username
-  //   console.log(post.likes.indexOf(`${profile?.username}`), profile, 'from await')
-  //   if(post.likes.indexOf(`${profile?.username}`) !== -1) {
-  //     console.log('akan ke true')
-  //     setLiked(true)
-  //   }
-  //   } catch (error) {
-  //     // 
-  //   }
-  // }
 
   useEffect(() => {
     const modalElement = document.getElementById("my_modal_2");
