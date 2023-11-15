@@ -25,17 +25,19 @@ function App() {
   const { userInfo } = useContext(UserContext);
 
   const user = userInfo != null;
-  const location = useLocation()
+  const location = useLocation();
   // console.log(location.pathname)
   return (
     <>
-      {
-        location.pathname != '/signup' && location.pathname != '/login' ? <Navbar user={user} />: <></>
-      }
+      {location.pathname != "/signup" && location.pathname != "/login" ? (
+        <Navbar user={user} />
+      ) : (
+        <></>
+      )}
       <Routes>
         <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <LoginPage />}
+          path="/login"
+          element={user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route
           path="/signup"
@@ -50,7 +52,7 @@ function App() {
           path="/post/:_id"
           element={user ? <HomePage /> : <Navigate to="/login" />}
         /> */}
-        <Route path="/search" element={<SearchPage />}/>
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/saved" element={<SavedPostsPages />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/posting" element={<PostFormPage />} />
@@ -60,6 +62,10 @@ function App() {
         <Route path="/profile/about" element={<About />} />
         <Route path="/logout" element={<LoginPage />} />
         <Route path="*" element={<HttpCatImage statusCode={404} />} />
+        <Route
+          path="/post/undefined"
+          element={<HttpCatImage statusCode={404} />}
+        />
       </Routes>
     </>
   );
