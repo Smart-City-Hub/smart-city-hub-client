@@ -2,7 +2,7 @@ import axios from "axios";
 
 const HttpRequest = axios.create({
     withCredentials: true,
-    baseURL: "http://localhost:3000",
+    baseURL: import.meta.env.VITE_BASEURL,
     // signal: controller.signal
 })
 

@@ -14,7 +14,7 @@ function Avatar({ size, url }) {
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className={avatarClass}>
             <img
-              src={`http://localhost:3000/${profile.photo}`}
+              src={`${import.meta.env.VITE_BASEURL}/${profile.photo}`}
               alt="foto profil"
             />
           </div>

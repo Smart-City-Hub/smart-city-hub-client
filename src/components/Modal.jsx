@@ -4,6 +4,7 @@ import { posts } from "../data";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { postService } from "../services";
 import ChatBubble from "./ChatBubble";
+import { profileStore } from "../store/profile";
 
 function Modal({ post ,closeModal}) {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -11,9 +12,11 @@ function Modal({ post ,closeModal}) {
     title: "",
     imageUrl: "",
     content: ""
-})
+  })
+  const [comment, setComment] = useState(post.comments)
 
   const [commentText, setCommentText] = useState("")
+  const profile = profileStore(state => state.profile)
   const removeQueryParams = () => {
     if (searchParams.has('id')){
       searchParams.delete('id')
@@ -30,7 +33,7 @@ function Modal({ post ,closeModal}) {
             content: `${response.data.data.content}`
         })
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
   }
 
@@ -41,13 +44,10 @@ function Modal({ post ,closeModal}) {
       const response = await postService.createComment(id, {
         text:data
       })
-      console.log(response)
     } catch (error) {
       console.log(error)      
     }
   }
-
-
 
   useEffect(() => {
     const controller = new AbortController();
@@ -89,9 +89,10 @@ function Modal({ post ,closeModal}) {
               </div>
             </div>
           </div>
-          <div className="h-full bg-red-300">
+          <div className="h-full">
+          <h1 className="text-lg font-bold text-start text-slate-600">Comments</h1>
             {
-              post.comments.map(data => <ChatBubble comment={data}/>)
+              comment.map(data => <ChatBubble comment={data}/>)
             }
           </div>
         </div>
