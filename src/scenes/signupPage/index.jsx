@@ -48,7 +48,7 @@ function SignupPage() {
       setMsg("Registration success")
       toggle()
     } catch (error) {
-      const msgError = error.response.data
+      const msgError = error?.response?.data
 
       switch (msgError) {
         case "Email already exist":
@@ -61,6 +61,10 @@ function SignupPage() {
           setMsg("Username already used")
           toggle()
           break
+        default:
+          setType("error")
+          setMsg("Unknown error")
+          toggle()
       }
     }
   }

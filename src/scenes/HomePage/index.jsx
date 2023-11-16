@@ -13,7 +13,7 @@ const HomePage = () => {
   const profile = profileStore(state => state.profile)
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/post/all").then((response) => {
+    fetch(`${import.meta.env.VITE_BASEURL}/api/post/all`).then((response) => {
       response.json().then((posts) => {
         setPosts(posts.data);
       });

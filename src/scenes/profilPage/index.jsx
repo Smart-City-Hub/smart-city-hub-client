@@ -18,6 +18,7 @@ import { useModal } from "../../hooks";
 import Alert from "@components/Alert";
 import { profileStore } from "../../store/profile";
 
+
 function ProfilPage() {
   const { pathname } = useLocation();
   const isPosts = pathname.includes("posts") || pathname === "/profile";
@@ -108,7 +109,7 @@ function ProfilPage() {
         {isPosts && (
           <div>
             {post.map((post) => (
-              <MyPostCard post={post} deletePost={deletePost} key={post._id} toggleEditModal={setEditModalShow}/>
+              <MyPostCard post={post} deletePost={deletePost} key={post._id} toggleEditModal={setEditModalShow} username={profile.username}/>
             ))}
           </div>
         )}

@@ -167,7 +167,7 @@ function PostCard({ post, username }) {
             </div>
           </div>
           <figure className="rounded-md overflow-hidden">
-            <img src={"http://localhost:3000/" + post.cover} alt="Shoes" />
+            <img src={`${import.meta.env.VITE_BASEURL}/` + post.cover} alt="Shoes" />
           </figure>
           <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
             <li onClick={() => {
@@ -188,9 +188,17 @@ function PostCard({ post, username }) {
             </li>
             {/* <Link to={`/post/${post._id}`}> */}
               <li onClick={() => {
-                  setSearchParams({
-                    id: `${post._id}`
-                  })
+                  if (searchParams.get('key')) {
+                    setSearchParams({
+                      id: `${post._id}`,
+                      key: `${searchParams.get('key')}`
+                    })
+                  } else {
+                    setSearchParams({
+                      id: `${post._id}`
+                    })
+                  }
+                  
                   openModal()
                   }
                 }>
