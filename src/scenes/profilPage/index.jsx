@@ -11,7 +11,7 @@ import AboutMe from "@components/AboutMe";
 // import { posts } from "../../data";
 import { postService } from "../../services";
 import axios from "axios";
-import MyPostCard from "@components/myPostCard";
+import MyPostCard from "@components/MyPostCard";
 import EditPostModal from "@components/EditPostModal";
 import { useModal } from "../../hooks";
 // import { controller } from "../../services/api";
