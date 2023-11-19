@@ -19,6 +19,7 @@ const Navbar = ({ user }) => {
     localStorage.removeItem("smartcityhub");
     setUserInfo(null);
     navigate("/login", { replace: true });
+    Cookies.remove('token')
   };
 
   const getUserProfile = async () => {
