@@ -35,7 +35,7 @@ const LoginPage = () => {
   async function login(e) {
     e.preventDefault();
  
-    const response = await fetch("http://localhost:3000/api/users/login", {
+    const response = await fetch(`${import.meta.env.VITE_BASEURL}/api/users/login`, {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
