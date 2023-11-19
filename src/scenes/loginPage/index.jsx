@@ -10,55 +10,59 @@ const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
   const navigate = useNavigate()
-  const login = async (e) => {
-    e.preventDefault()
-    try {
-        const response = await authService.login({
-          email: email,
-          password: password
-        })
-        // console.log(response)
-        // console.log('masuk', response.data)
-        if (response.data.status === "success") {
-          setUserInfo(response.data.data)
-          localStorage.setItem("smartcityhub", JSON.stringify(response.data.data))
-          navigate("/")
-        }
-    } catch (e) {
-      if (e.response.data === "wrong password") {
-        alert("Password salah")
-      }
+
+  // const login = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //       const response = await authService.login({
+  //         email: email,
+  //         password: password
+  //       })
+  //       console.log(response)
+  //       // console.log('masuk', response.data)
+  //       if (response.data.status === "success") {
+  //         setUserInfo(response.data.data)
+  //         localStorage.setItem("smartcityhub", JSON.stringify(response.data.data))
+  //         // navigate("/")
+  //       }
+  //   } catch (e) {
+  //     if (e.response.data === "wrong password") {
+  //       alert("Password salah")
+  //     }
+  //   }
+  // }
+
+  async function login(e) {
+    e.preventDefault();
+ 
+    const response = await fetch("http://localhost:3000/api/users/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      response.json().then((userInfo) => {
+        setUserInfo(userInfo.data);
+        localStorage.setItem("smartcityhub", JSON.stringify(userInfo.data));
+        document.cookie = `token=${userInfo.token}`
+        // console.log(userInfo)
+        // setRedirect(true);
+      });
+    } else {
+      alert("Wrong credentials");
+    }
+
+    if (response.status === 200) {
+      alert("login successfull");
+    } else {
+      alert("login failed");
     }
   }
-  // async function login(e) {
-  //   e.preventDefault();
- 
-  //   const response = await fetch("http://localhost:3000/api/users/login", {
-  //     method: "POST",
-  //     body: JSON.stringify({ email, password }),
-  //     headers: { "Content-Type": "application/json" },
-  //   });
 
-  //   if (response.ok) {
-  //     response.json().then((userInfo) => {
-  //       setUserInfo(userInfo.data);
-  //       localStorage.setItem("smartcityhub", JSON.stringify(userInfo.data));
-  //       setRedirect(true);
-  //     });
-  //   } else {
-  //     alert("Wrong credentials");
-  //   }
-
-  //   if (response.status === 200) {
-  //     alert("login successfull");
-  //   } else {
-  //     alert("login failed");
-  //   }
-  // }
-
-  // if (redirect) {
-  //   return <Navigate to={"/"} />;
-  // }
+  if (redirect) {
+    // return <Navigate to={"/"} />;
+  }
 
   return (
     <section className="bg-gray-50 min-h-screen flex items-center justify-center">
