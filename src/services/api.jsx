@@ -8,7 +8,7 @@ const HttpRequest = axios.create({
     headers: {
         'Content-Type': 'application/json',
         // 'Authorization': 
-        'Authorization': token
+        'Authorization': `Bearer ${token}`
     }
     // signal: controller.signal
 })

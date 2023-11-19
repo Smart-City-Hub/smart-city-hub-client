@@ -15,9 +15,6 @@ const register = async (request) => {
 const getUserProfile = async (token) => {
     return await HttpRequest.get('/api/users', {
         withCredentials: true,
-        headers: {
-            'Authorization': token
-        }
     })
 }
 
