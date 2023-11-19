@@ -34,7 +34,7 @@ function Modal({ post ,closeModal}) {
         // console.log(response)
         setPostData({
             title: `${response.data.data.title}`,
-            imageUrl: `http://localhost:3000/${response.data.data.cover}`,
+            imageUrl: `${import.meta.env.VITE_BASEURL}/${response.data.data.cover}`,
             content: `${response.data.data.content}`
         })
     } catch (error) {
