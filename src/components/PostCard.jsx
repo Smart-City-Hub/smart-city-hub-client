@@ -9,6 +9,7 @@ import PostPage from "../scenes/postPage";
 import Modal from "./Modal";
 import { postService } from "../services";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
 
 function PostCard({ post, username }) {
   const [isModalOpen, setIsModal] = useState(false);
@@ -19,7 +20,8 @@ function PostCard({ post, username }) {
   // console.log(post.likes, username, post.likes.indexOf(username), liked)
   const toggleLikedPost = async () => {
     try {
-      const response = await postService.toggleLikedPost(post._id)
+      const token = Cookies.get('token')
+      const response = await postService.toggleLikedPost(post._id, token)
       // console.log(response)
     } catch (error) {
       console.log(error)

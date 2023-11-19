@@ -6,6 +6,7 @@ import { postService } from "../services";
 import ChatBubble from "./ChatBubble";
 import { profileStore } from "../store/profile";
 import { useComments } from "../hooks";
+import Cookies from "js-cookie";
 
 function Modal({ post ,closeModal}) {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -28,7 +29,8 @@ function Modal({ post ,closeModal}) {
   }
   const getPostDetail = async (id, signal) => {
     try {
-        const response = await postService.getPostById(id, signal)
+        const token = Cookies.get('token')
+        const response = await postService.getPostById(id, signal, token)
         // console.log(response)
         setPostData({
             title: `${response.data.data.title}`,
@@ -44,9 +46,10 @@ function Modal({ post ,closeModal}) {
 
   const createComment = async (id, data) => {
     try {
+      const token = Cookies.get('token')
       const response = await postService.createComment(id, {
         text:data
-      })
+      }, token)
       setToggleFetch(prev => !prev)
     } catch (error) {
       console.log(error)      

@@ -5,11 +5,20 @@ const login = async (request) => {
 }
 
 const register = async (request) => {
-    return await HttpRequest.post('/api/users/register', request)
+    return await HttpRequest.post('/api/users/register', request, {
+        headers: {
+            'Content-Type': 'multipart/formdata'
+        }
+    })
 }
 
-const getUserProfile = async () => {
-    return await HttpRequest.get('/api/users')
+const getUserProfile = async (token) => {
+    return await HttpRequest.get('/api/users', {
+        withCredentials: true,
+        headers: {
+            'Authorization': token
+        }
+    })
 }
 
 export { login, register, getUserProfile }

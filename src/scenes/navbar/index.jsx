@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../services";
 import { profileStore } from "../../store/profile";
+import Cookies from "js-cookie";
 
 const Navbar = ({ user }) => {
   const { userInfo ,setUserInfo } = useContext(UserContext);
@@ -22,7 +23,8 @@ const Navbar = ({ user }) => {
 
   const getUserProfile = async () => {
     try {
-      const response = await authService.getUserProfile()
+      const token = Cookies.get('token')
+      const response = await authService.getUserProfile(token)
       // console.log(response.data.data[0])
       updateProfile(response.data.data[0])
     } catch (error) {

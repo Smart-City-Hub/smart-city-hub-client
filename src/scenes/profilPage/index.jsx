@@ -17,6 +17,7 @@ import { useModal } from "../../hooks";
 // import { controller } from "../../services/api";
 import Alert from "@components/Alert";
 import { profileStore } from "../../store/profile";
+import Cookies from "js-cookie";
 
 
 function ProfilPage() {
@@ -32,7 +33,8 @@ function ProfilPage() {
 
   const getPostPostedByUser = async (signal) => {
     try {
-      const response = await postService.getPostPostedByUser(signal)
+      const token = Cookies.get('token')
+      const response = await postService.getPostPostedByUser(signal, token)
       setPost(response.data.data)
       // console.log(response)
     } catch (error) {
@@ -42,7 +44,8 @@ function ProfilPage() {
 
   const deletePost = async (id) => {
     try {
-        const response = await postService.deletePost(id)
+        const token = Cookies.get('token')
+        const response = await postService.deletePost(id, token)
         // console.log(response)
         setPost(prev => {
           return prev.filter(item => item._id !== id )

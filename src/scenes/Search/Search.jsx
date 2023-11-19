@@ -8,6 +8,7 @@ import { posts } from "../../data";
 import { useState } from "react";
 import { postService } from "../../services";
 import { useSearchParams } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const SearchPage = () => {
   const [posts, setPosts] = useState([]);
@@ -15,7 +16,8 @@ const SearchPage = () => {
   
   const searchPost = async (request) => {
     try {
-        const response = await postService.searchPost(request)
+        const token = Cookies.get('token')
+        const response = await postService.searchPost(request, token)
         setPosts(response.data.data)
     } catch (error) {
         console.log(error)

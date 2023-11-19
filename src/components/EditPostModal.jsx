@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { useSearchParams } from "react-router-dom";
 import { postService } from "../services";
+import Cookies from "js-cookie";
 
 // bisa ditambahi skeleton loading buat loading get post by idnya ya wir
 const EditPostModal = ({toggleEditModal, toggleAlert}) => {
@@ -17,11 +18,12 @@ const EditPostModal = ({toggleEditModal, toggleAlert}) => {
     
     const getPostDetail = async (id, signal) => {
         try {
-            const response = await postService.getPostById(id, signal)
+            const token = Cookies.get('token')
+            const response = await postService.getPostById(id, signal, token)
             // console.log(response)
             setPostData({
                 title: `${response.data.data.title}`,
-                imageUrl: `http://localhost:3000/${response.data.data.cover}`,
+                imageUrl: `${import.meta.env.VITE_BASEURL}/${response.data.data.cover}`,
                 content: `${response.data.data.content}`
             })
         } catch (error) {
@@ -39,7 +41,8 @@ const EditPostModal = ({toggleEditModal, toggleAlert}) => {
             if (fileGambar != null) {
                 formData.append("file", fileGambar)
             }
-            const response = await postService.updatePost(formData)
+            const token = Cookies.get('token')
+            const response = await postService.updatePost(formData, token)
             toggleEditModal()
             toggleAlert()
         } catch (error) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { postService } from "../services";
+import Cookies from "js-cookie";
 
 
 const useComments = (post_id) => {
@@ -9,7 +10,8 @@ const useComments = (post_id) => {
     useEffect(() => {
         const getComments = async (post_id) => {
             try {
-                const response = await postService.getComment(post_id)
+                const token = Cookies.get('token')
+                const response = await postService.getComment(post_id, token)
                 setComments(response.data)
             } catch (error) {
                 console.log(error)

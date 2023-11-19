@@ -6,6 +6,7 @@ import Card from "@components/Card";
 import { postService } from "../../services";
 import Alert from "@components/Alert";
 import { useModal } from "../../hooks";
+import Cookies from "js-cookie";
 
 function PostFormPage() {
   const [user, setUser] = useState();
@@ -38,7 +39,8 @@ function PostFormPage() {
       formData.append("summary", request.summary)
       formData.append("content", request.content)
       formData.append("file", fileGambar)
-      const resp = await postService.createPost(formData)
+      const token = Cookies.get('token')
+      const resp = await postService.createPost(formData, token)
       toggle()
     }
     catch (e) {
