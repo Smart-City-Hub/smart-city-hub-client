@@ -5,7 +5,6 @@ const createPost = async (request, token) => {
         request, {
         withCredentials: true,
         headers: {
-            'Authorization': token,
             'Content-Type': 'multipart/formdata'
         }
     })
@@ -14,43 +13,25 @@ const createPost = async (request, token) => {
 const getPostPostedByUser = async (signal, token) => {
     return await HttpRequest.get('api/post', {
         signal: signal,
-        headers: {
-            'Authorization': token
-        }
     })
 }
 
 const deletePost = async (id, token) => {
-    return await HttpRequest.delete(`api/post/${id}`, {
-        headers: {
-            'Authorization': token
-        }
-    })
+    return await HttpRequest.delete(`api/post/${id}`)
 }
 
 const getPostById = async (id, signal, token) => {
     return await HttpRequest.get(`api/post/${id}`, {
         signal: signal,
-        headers: {
-            'Authorization': token
-        }
     })
 }
 
 const updatePost = async (request, token) => {
-    return await HttpRequest.put(`api/post`, request, {
-        headers: {
-            'Authorization': token
-        }
-    })
+    return await HttpRequest.put(`api/post`, request)
 }
 
 const searchPost = async (request, token) => {
-    return await HttpRequest.get(`api/post/search${request}`, {
-        headers: {
-            'Authorization': token
-        }
-    })
+    return await HttpRequest.get(`api/post/search${request}`)
 }
 
 const toggleLikedPost = async (post_id, token) => {
@@ -58,19 +39,11 @@ const toggleLikedPost = async (post_id, token) => {
 }
 
 const createComment = async (post_id, request, token) => {
-    return await HttpRequest.post(`api/post/${post_id}/comments`, request, {
-        headers: {
-            'Authorization': token
-        }
-    })
+    return await HttpRequest.post(`api/post/${post_id}/comments`, request)
 }
 
 const getComment = async (post_id, token) => {
-    return await HttpRequest.get(`api/post/${post_id}/comments` , {
-        headers: {
-            'Authorization': token
-        }
-    })
+    return await HttpRequest.get(`api/post/${post_id}/comments`)
 }
 
 export { createPost, getPostPostedByUser, deletePost, getPostById, updatePost, searchPost, toggleLikedPost, createComment, getComment }
