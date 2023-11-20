@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 
 // bisa ditambahi skeleton loading buat loading get post by idnya ya wir
 const EditPostModal = ({toggleEditModal, toggleAlert}) => {
+    const token = localStorage.getItem("token")
     const [searchParams, setSearchParams] = useSearchParams()
     const [postData, setPostData] = useState({
         title: "",

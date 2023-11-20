@@ -46,6 +46,7 @@ const LoginPage = () => {
         setUserInfo(userInfo.data);
         localStorage.setItem("smartcityhub", JSON.stringify(userInfo.data));
         document.cookie = `token=${userInfo.access_token}`
+        localStorage.setItem("token", userInfo.access_token)
         // console.log(userInfo)
         // setRedirect(true);
       });

@@ -20,7 +20,8 @@ function MyPostCard({ post, deletePost, toggleEditModal, username }) {
 
     const toggleLikedPost = async () => {
         try {
-          const response = await postService.toggleLikedPost(post._id)
+          const token = localStorage.getItem("token")
+          const response = await postService.toggleLikedPost(post._id, token)
           // console.log(response)
         } catch (error) {
           console.log(error)

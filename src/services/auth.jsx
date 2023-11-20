@@ -1,11 +1,11 @@
 import HttpRequest from "./api";
 
 const login = async (request) => {
-    return await HttpRequest.post('/api/users/login', request)
+    return await HttpRequest("none").post('/api/users/login', request)
 }
 
 const register = async (request) => {
-    return await HttpRequest.post('/api/users/register', request, {
+    return await HttpRequest("none").post('/api/users/register', request, {
         headers: {
             'Content-Type': 'multipart/formdata'
         }
@@ -13,7 +13,7 @@ const register = async (request) => {
 }
 
 const getUserProfile = async (token) => {
-    return await HttpRequest.get('/api/users', {
+    return await HttpRequest(token).get('/api/users', {
         withCredentials: true,
     })
 }

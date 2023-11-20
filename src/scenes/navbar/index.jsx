@@ -20,6 +20,7 @@ const Navbar = ({ user }) => {
     setUserInfo(null);
     navigate("/login", { replace: true });
     Cookies.remove('token')
+    localStorage.removeItem("token")
   };
 
   const getUserProfile = async () => {
