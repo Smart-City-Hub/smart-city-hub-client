@@ -41,6 +41,7 @@ The smart-city-hub-client serves as the front-end for a web application focused 
 
 ## Project Structure
 
+```bash
 src/
 |-- assets/
 |   |-- react.svg
@@ -89,6 +90,7 @@ src/
 |-- data.js
 |-- index.css
 |-- main.jsx
+```
 
 ### Usage
 
